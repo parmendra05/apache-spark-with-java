@@ -101,6 +101,10 @@ public class RDD_Example {
         JavaPairRDD<String,Integer> sortedFruits = fruitsPairRDD.sortByKey();
         sortedFruits.collect().forEach(System.out::println);
 
+        JavaRDD<String> listFromFile = sc.textFile("C:\\Users\\parmendra\\Desktop\\fruitsList.txt");
+        System.out.println("Reading Data fromm file");
+        listFromFile.collect().forEach(System.out::println);
+
         // Step 4: Close Spark Context
         sc.close();
     }
