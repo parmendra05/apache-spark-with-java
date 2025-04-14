@@ -18,6 +18,13 @@ public class RDD_Example {
         // Step 3: Print RDD elements
         rdd.collect().forEach(System.out::println);
 
+        // count() method
+        System.out.println(rdd.count());
+
+        // map() : to perform some action on each element
+        JavaRDD<String> upperCaseData=rdd.map(String::toUpperCase);
+        upperCaseData.collect().forEach(System.out::println);
+
         // Step 4: Close Spark Context
         sc.close();
     }
