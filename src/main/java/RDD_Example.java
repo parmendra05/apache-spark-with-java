@@ -1,6 +1,9 @@
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import scala.Tuple1;
+import scala.Tuple2;
+import scala.Tuple3;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,6 +65,21 @@ public class RDD_Example {
         union.collect().forEach(System.out::println);
         intersection.collect().forEach(System.out::println);
         distinct.collect().forEach(System.out::print);
+
+        // Examples of Tuple
+        // Tuple1 (holds 1 value)
+        Tuple1<String> tuple1 = new Tuple1<>("Apple");
+        System.out.println("Tuple 1 Value :" + tuple1._1);
+
+        // Tuple2 (holds 2 value)
+        Tuple2<String ,Integer> tuple2 = new Tuple2<>("Apple" ,100);
+        System.out.println("Tuple 2 Values, Name :" + tuple2._1 +", Price : "+tuple2._2);
+        System.out.println("Tuple 2 methods  : "+ tuple2._1());
+
+
+        // Tuple3 (holds 3 value)
+        Tuple3<String, Integer , String> tuple3 = new Tuple3<>("Apple", 150 , "Sweet");
+        System.out.println("Tuple 3 Value , Name :" + tuple3._1() +", Price : "+tuple3._2()+", Taste : "+tuple3._3());
 
         // Step 4: Close Spark Context
         sc.close();
