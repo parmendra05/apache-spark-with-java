@@ -43,6 +43,26 @@ public class RDD_Example {
         filteredEvenElement.collect().forEach(System.out::println);
         System.out.println(first2);
 
+        // Examples
+        JavaRDD<Integer> myRdd1 = sc.parallelize(Arrays.asList(1,5,5,3,2,6));
+        JavaRDD<Integer> myRdd2 = sc.parallelize(Arrays.asList(2,6,9,11));
+
+        //union() : Combines two RDDs.
+        JavaRDD<Integer> union = myRdd1.union(myRdd2);
+
+        //intersection(): Returns common elements.
+        JavaRDD<Integer> intersection = myRdd1.intersection(myRdd2);
+
+        //distinct() : Removes duplicate elements.
+        JavaRDD<Integer> distinct = myRdd1.distinct();
+
+        //Print all results
+        System.out.println("Examples of union() , intersection() & distinct()");
+
+        union.collect().forEach(System.out::println);
+        intersection.collect().forEach(System.out::println);
+        distinct.collect().forEach(System.out::print);
+
         // Step 4: Close Spark Context
         sc.close();
     }
