@@ -25,6 +25,24 @@ public class RDD_Example {
         JavaRDD<String> upperCaseData=rdd.map(String::toUpperCase);
         upperCaseData.collect().forEach(System.out::println);
 
+        //parallelize(list1) → tells Spark: "Hey, take this list and break it into parts so Spark can work on it in parallel."
+        List<Integer> list1 = Arrays.asList(1,2,3,4);
+        JavaRDD<Integer> rdd1 = sc.parallelize(list1);
+
+        // map() : to perform some action on each element
+        JavaRDD<Integer> mappedList= rdd1.map(x -> x*2);
+
+        //filter() : Filters elements based on a condition.
+        JavaRDD<Integer> filteredEvenElement = rdd1.filter(x -> x%2==0);
+
+        //take(n) : Returns the first n elements.
+        List<Integer> first2 = rdd1.take(2);
+
+        //Print all results
+        mappedList.collect().forEach(System.out::println);
+        filteredEvenElement.collect().forEach(System.out::println);
+        System.out.println(first2);
+
         // Step 4: Close Spark Context
         sc.close();
     }
