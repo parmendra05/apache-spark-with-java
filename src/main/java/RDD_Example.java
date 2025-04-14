@@ -1,4 +1,5 @@
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple1;
@@ -74,12 +75,31 @@ public class RDD_Example {
         // Tuple2 (holds 2 value)
         Tuple2<String ,Integer> tuple2 = new Tuple2<>("Apple" ,100);
         System.out.println("Tuple 2 Values, Name :" + tuple2._1 +", Price : "+tuple2._2);
-        System.out.println("Tuple 2 methods  : "+ tuple2._1());
-
 
         // Tuple3 (holds 3 value)
         Tuple3<String, Integer , String> tuple3 = new Tuple3<>("Apple", 150 , "Sweet");
         System.out.println("Tuple 3 Value , Name :" + tuple3._1() +", Price : "+tuple3._2()+", Taste : "+tuple3._3());
+
+        // PairRDD Example
+        List<Tuple2<String,Integer>> rddPairData = Arrays.asList(
+                new Tuple2<>("Mango",130),
+                new Tuple2<>("Banana", 60),
+                new Tuple2<>("Papaya", 45),
+                new Tuple2<>("Pine Apple", 90),
+                new Tuple2<>("Mango",150),
+                new Tuple2<>("Banana", 40)
+        );
+        JavaPairRDD<String,Integer> fruitsPairRDD = sc.parallelizePairs(rddPairData);
+
+        fruitsPairRDD.collect().forEach(System.out::println);
+
+        // groupByKey() method
+        JavaPairRDD <String , Iterable<Integer>> grouped = fruitsPairRDD.groupByKey();
+        grouped.collect().forEach(System.out::println);
+
+        // sortByKey()
+        JavaPairRDD<String,Integer> sortedFruits = fruitsPairRDD.sortByKey();
+        sortedFruits.collect().forEach(System.out::println);
 
         // Step 4: Close Spark Context
         sc.close();
